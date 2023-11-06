@@ -2,7 +2,6 @@ package com.example.akranoid;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import java.awt.Graphics;
 import java.awt.Font;
 import java.awt.Color;

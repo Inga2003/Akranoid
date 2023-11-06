@@ -104,13 +104,12 @@ public class CollisionDetector {
         int brick2TopY = brick2.getTopY();
         int brick2BottomY = brick2.getBottomY();
 
-        // Check if any side of brick1 is adjacent to any side of brick2
         boolean leftRightAdjacent = (brick1RightX == brick2LeftX || brick1LeftX == brick2RightX) &&
                 (brick1TopY <= brick2BottomY && brick1BottomY >= brick2TopY);
         boolean topBottomAdjacent = (brick1BottomY == brick2TopY || brick1TopY == brick2BottomY) &&
                 (brick1LeftX <= brick2RightX && brick1RightX >= brick2LeftX);
 
-        // Check if any corner of brick1 is not adjacent to any corner of brick2
+        //corners check
         boolean notCornerAdjacent = !((brick1RightX == brick2LeftX && brick1BottomY == brick2TopY) ||
                 (brick1LeftX == brick2RightX && brick1BottomY == brick2TopY) ||
                 (brick1RightX == brick2LeftX && brick1TopY == brick2BottomY) ||
