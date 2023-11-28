@@ -23,8 +23,10 @@ public class Paddle extends GameObject implements GameObjectMethods{
     }
 
     public void moveLeft() {
-        if (x > 0) {
+        if (x - 20 >= 0) { // Adjust the condition to ensure it doesn't go beyond the left wall
             x -= 20;
+        } else {
+            x = 0; // Set x to 0 if it goes beyond the left wall
         }
     }
 
