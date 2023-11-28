@@ -4,21 +4,22 @@ import lombok.Getter;
 import lombok.Setter;
 @Getter
 @Setter
-public class Brick {
-    private int x, y;
-    private int width, height;
+public class Brick extends GameObject implements GameObjectMethods{
+
     private int leftX, rightX, topY, bottomY;
-    private Color color;
+    private static final int DEFAULT_WIDTH = 50;
+    private static final int DEFAULT_HEIGHT = 20;
 
     public Brick(int x, int y, Color color) {
         this.x = x;
         this.y = y;
-        width = 50;
-        height = 20;
+        width = DEFAULT_WIDTH;
+        height = DEFAULT_HEIGHT;
         this.color = color;
         calculateCorners();
     }
 
+    @Override
     public void draw(Graphics g) {
         g.setColor(color);
         g.fillRect(x, y, width, height);
@@ -26,6 +27,7 @@ public class Brick {
         g.drawRect(x, y, width, height);
     }
 
+    @Override
     public Rectangle getRectangle() {
         return new Rectangle(x, y, width, height);
     }

@@ -1,9 +1,12 @@
 package com.example.akranoid;
 
+import lombok.Getter;
+import lombok.Setter;
 import java.awt.Rectangle;
 import java.util.List;
 import java.util.ArrayList;
 import java.awt.Color;
+
 
 public class CollisionDetector {
     public void checkCollision(Ball ball, Paddle paddle, List<Brick> bricks, Score score) {
@@ -13,21 +16,7 @@ public class CollisionDetector {
         boolean brickCollided = false;
         Brick collidedBrick = null;
 
-        if (ballRect.intersects(paddleRect)) {
-            int paddleCenterX = paddle.getX() + paddle.getWidth() / 2;
-            int ballCenterX = ball.getX() + ball.getDiameter() / 2;
-
-            if (ballCenterX < paddleCenterX) {
-                ball.reverseYDirection();
-                ball.reverseXDirectionLeft();
-            } else {
-                ball.reverseYDirection();
-                ball.reverseXDirectionRight();
-            }
-
-            ballCollided = true;
-        }
-
+        ballCollided = checkBallPaddleCollision(ball, paddleRect);
         List<Brick> bricksToRemove = new ArrayList<>();
 
         for (Brick brick : bricks) {
@@ -74,6 +63,26 @@ public class CollisionDetector {
         if (ballCollided && !ballRect.intersects(paddleRect)) {
             ball.reverseYDirection();
         }
+    }
+
+
+    private boolean checkBallPaddleCollision(Ball ball, Rectangle paddleRect) {
+        Rectangle ballRect = ball.getRectangle();
+
+        if (ballRect.intersects(paddleRect)) {
+            int paddleCenterX = paddleRect.x + paddleRect.width / 2;
+            int ballCenterX = ball.getX() + ball.getDiameter() / 2;
+
+            if (ballCenterX < paddleCenterX) {
+                ball.reverseYDirection();
+                ball.reverseXDirectionLeft();
+            } else {
+                ball.reverseYDirection();
+                ball.reverseXDirectionRight();
+            }
+            return true;
+        }
+        return false;
     }
 
     public int removeAdjacentBricks(List<Brick> bricks, Brick collidedBrick) {

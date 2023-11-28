@@ -1,5 +1,8 @@
 package com.example.akranoid;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@Getter
+@Setter
 public class ArkanoidGame extends JPanel implements ActionListener, KeyListener {
     private Paddle paddle;
     private Ball ball;
@@ -57,7 +62,7 @@ public class ArkanoidGame extends JPanel implements ActionListener, KeyListener 
         timer.start();
     }
 
-    private void restartGame() {
+    public void restartGame() {
         gameIsOver = false;
         score.resetScore();
         lives.resetLives(3);
@@ -153,8 +158,19 @@ public class ArkanoidGame extends JPanel implements ActionListener, KeyListener 
         }
     }
 
+    public boolean isGameOver() {
+        return gameIsOver;
+    }
     @Override
     public void keyTyped(KeyEvent e) {
+    }
+
+    public void movePaddleLeft() {
+        paddle.moveLeft();
+    }
+
+    public void movePaddleRight() {
+        paddle.moveRight();
     }
 
     @Override
@@ -162,12 +178,12 @@ public class ArkanoidGame extends JPanel implements ActionListener, KeyListener 
         int key = e.getKeyCode();
 
         if (key == KeyEvent.VK_LEFT) {
-            paddle.moveLeft();
+            movePaddleLeft();
             if (ball.getXSpeed() == 0) {
                 ball.setX(paddle.getX() + (paddle.getWidth() / 2) - (ball.getDiameter() / 2));
             }
         } else if (key == KeyEvent.VK_RIGHT) {
-            paddle.moveRight();
+            movePaddleRight();
             if (ball.getXSpeed() == 0) {
                 ball.setX(paddle.getX() + (paddle.getWidth() / 2) - (ball.getDiameter() / 2));
             }

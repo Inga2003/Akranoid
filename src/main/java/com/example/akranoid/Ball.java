@@ -5,19 +5,23 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Ball {
-    private int x, y, diameter;
+public class Ball extends GameObject implements GameObjectMethods{
+    private static final int DEFAULT_X = 232;
+    private static final int DEFAULT_Y = 335;
+    private static final int DEFAULT_DIAMETER = 15;
+    private int diameter;
     private double xSpeed, ySpeed;
     private boolean isFalling;
 
     public Ball() {
-        x = 232;
-        y = 335;
-        diameter = 15;
+        x = DEFAULT_X;
+        y = DEFAULT_Y;
+        diameter = DEFAULT_DIAMETER;
         xSpeed = 0;
         ySpeed = 0;
     }
 
+    @Override
     public void draw(Graphics g) {
         g.setColor(Color.WHITE);
         g.fillOval(x, y, diameter, diameter);
@@ -41,6 +45,7 @@ public class Ball {
         }
     }
 
+    @Override
     public Rectangle getRectangle() {
         return new Rectangle(x, y, diameter, diameter);
     }
